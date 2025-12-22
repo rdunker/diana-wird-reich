@@ -28,6 +28,7 @@ const messages = [
   "Frank verdient bestimmt nicht so viel.",
   "C3 gibt dir einen Flug nach Mexico aus 💲",
   "Katzenfutter ist teuer 🐈‍⬛",
+  "🇲🇽🇲🇽🇲🇽",
 ];
 
 let messageIndex = 0;
@@ -170,13 +171,16 @@ function animate(currentTime) {
     seal.x += seal.speed * seal.direction;
 
     // Reverse direction if hitting edges
+    const maxX = window.innerWidth - 48;
+
     if (seal.x <= 0) {
-      seal.direction = 1;
-      seal.imgEl.style.transform = "scaleX(1)";
-    }
-    if (seal.x >= window.innerWidth - 48) {
-      seal.direction = -1;
-      seal.imgEl.style.transform = "scaleX(-1)";
+    seal.x = 0;               // clamp
+    seal.direction = 1;
+    seal.imgEl.style.transform = "scaleX(1)";
+    } else if (seal.x >= maxX) {
+    seal.x = maxX;            // clamp
+    seal.direction = -1;
+    seal.imgEl.style.transform = "scaleX(-1)";
     }
 
     // Swap frames for crawling effect every 200 ms
